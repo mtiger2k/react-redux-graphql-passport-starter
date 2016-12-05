@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 
 import NavbarLink from '../components/NavbarLink';
+import Profile from '../components/Profile';
 
 const Layout = ({ children, params, location }) => (
   <div>
@@ -35,6 +36,7 @@ const Layout = ({ children, params, location }) => (
           />
         </ul>
 
+        <Profile />
       </div>
     </nav>
     <div className="container">

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addCount } from '../actions/counter'
+import { Button } from 'react-bootstrap'
 
 class Counter extends Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class Counter extends Component {
     return (
       <div className="counter">
       <h2>Counter: {count}</h2>
-      <button onClick={this.handleAdd} > Add </button>
+      <Button bsStyle="primary" onClick={this.handleAdd} > Add </Button>
       </div>
    );
   }

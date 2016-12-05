@@ -5,9 +5,11 @@ import bodyParser from 'body-parser';
 import { createServer } from 'http';
 import { SubscriptionServer } from 'subscriptions-transport-ws';
 import { subscriptionManager } from './subscriptions';
+import passport from 'passport';
 
 import schema from './schema';
 import * as CounterService from './services/countService'
+import { setupLocalLogin } from './localLogin'
 
 require('dotenv').config();
 
@@ -18,7 +20,9 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use('/graphql', graphqlExpress((req) => {
+setupLocalLogin(app);
+
+app.use('/graphql', passport.authenticate('jwt', {session: false}), graphqlExpress((req) => {
   const query = req.query.query || req.body.query;
   if (query && query.length > 2000) {
     throw new Error('Query too large.');
@@ -27,6 +31,7 @@ app.use('/graphql', graphqlExpress((req) => {
   return {
     schema,
     context: {
+      user: req.user,
       counterService: CounterService
     },
   };
