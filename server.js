@@ -7,11 +7,16 @@ var config = require('./webpack.dev.config');
 var history = require('connect-history-api-fallback');
 var proxy = require('http-proxy-middleware');
 
+const PORT = process.env.PORT || '3000';
+const API_PORT = process.env.API_PORT || '3010';
+
 var app = express();
 var compiler = webpack(config);
 
 app.use(history());
-app.use(proxy('/api', {target: 'http://localhost:8080', changeOrigin: true}));
+app.use(proxy('/api', {target: 'http://localhost:'+API_PORT, changeOrigin: true,
+    pathRewrite: function (path, req) { return path.replace('/api', '') }
+}));
 
 app.use(devMiddleware(compiler, {
   noInfo: true,
@@ -21,10 +26,10 @@ app.use(devMiddleware(compiler, {
 
 app.use(hotMiddleware(compiler));
 
-app.listen(3000, function (err) {
+app.listen(PORT, function (err) {
   if (err) {
     return console.error(err);
   }
 
-  console.log('Listening at http://localhost:3000/');
+  console.log('Listening at http://localhost:'+PORT);
 });

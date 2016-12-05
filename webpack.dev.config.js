@@ -18,7 +18,9 @@ module.exports = {
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       "process.env": {
-        NODE_ENV: JSON.stringify('development')
+        NODE_ENV: JSON.stringify('development'),
+        'PORT': JSON.stringify('3000'),
+        'WS_PORT': JSON.stringify('8082')
       }
     }),
     new HtmlWebpackPlugin({

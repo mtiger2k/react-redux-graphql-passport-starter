@@ -15,7 +15,7 @@ export default class Index extends React.Component {
           <h2>Welcome to my demo app.</h2>
           <h3>Check out these links</h3>
           <ul>
-            <li><Link to="/counter">Counter</Link></li>
+            <li><Link to="/localCounter">Counter</Link></li>
             <li><Link to="/about">About</Link></li>
           </ul>
         </Col>
