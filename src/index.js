@@ -72,7 +72,7 @@ const history = syncHistoryWithStore(browserHistory, store);
 const actions = bindActionCreators({redirectToLoginWithMessage, signOutUser}, store.dispatch);
 setupAxiosInterceptors(() => actions.redirectToLoginWithMessage());
 
-const routes = getRoutes(actions.signOutUser, store);
+const routes = getRoutes(actions.signOutUser, store, client);
 
 ReactDOM.render(
   <ApolloProvider client={client} store={store}>

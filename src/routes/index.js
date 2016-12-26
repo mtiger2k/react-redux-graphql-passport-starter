@@ -10,10 +10,13 @@ import privateRoute from './privateRoute';
 import Login from '../containers/Login';
 import { fetchUser } from '../actions/user';
 
-export default function getRoutes(onLogout, store) {
+export default function getRoutes(onLogout, store, client) {
 
     const logout = (nextState, replace, cb) => {
         onLogout();
+        if (client) {
+            client.resetStore();
+        }
         replace('/');
         cb();
     };

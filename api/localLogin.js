@@ -25,7 +25,7 @@ export function setupLocalLogin(app) {
     res.send({id: req.user.id, username: req.user.username});
   });
 
-  app.get('/user', passport.authenticate('jwt', {session: false}), (req, res)=>{
+  app.post('/user', passport.authenticate('jwt', {session: false}), (req, res)=>{
     if (req.user) {
         res.send({id: req.user._id, username: req.user.username});
     } else {
