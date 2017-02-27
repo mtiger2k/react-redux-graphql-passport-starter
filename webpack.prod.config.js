@@ -75,6 +75,11 @@ module.exports = {
     }, {
       test: /\.json/,
       loaders: ['json-loader']
+    },
+    {
+      test: /\.(graphql|gql)$/,
+      exclude: /node_modules/,
+      loader: 'graphql-tag/loader',
     }]
   },
     postcss: [

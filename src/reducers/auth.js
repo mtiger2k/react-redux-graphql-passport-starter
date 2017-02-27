@@ -1,5 +1,6 @@
 import {
     SIGN_IN, SIGN_IN_SUCCESS, SIGN_IN_FAILED,
+    SIGN_UP, SIGN_UP_SUCCESS, SIGN_UP_FAILED,
     SIGN_OUT
 } from '../actions/types';
 
@@ -22,6 +23,18 @@ export default function (auth = {authenticated: false, token: null, logging: fal
                 logging: false,
                 authenticated: false,
                 errorMsg: 'Incorrect username or password.'
+            })
+        case SIGN_UP:
+            return Object.assign({}, auth, {
+                errorMsg: 'Signing up...'
+            })
+        case SIGN_UP_SUCCESS:
+            return Object.assign({}, auth, {
+                errorMsg: 'Sign up success'
+            })
+        case SIGN_UP_FAILED:
+            return Object.assign({}, auth, {
+                errorMsg: 'Sign up failed.'
             })
         case SIGN_OUT:
             return Object.assign({}, auth, {

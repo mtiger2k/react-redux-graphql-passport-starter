@@ -60,6 +60,11 @@ module.exports = {
         test: /\.scss$/,
         loader: 'style!css!sass?modules&localIdentName=[name]---[local]---[hash:base64:5]'
     },
+    {
+      test: /\.(graphql|gql)$/,
+      exclude: /node_modules/,
+      loader: 'graphql-tag/loader',
+    }
      ]
   }
 };

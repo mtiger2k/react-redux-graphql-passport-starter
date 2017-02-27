@@ -12,11 +12,20 @@ const renderField = ({ input, label, type, meta: { touched, error, warning } }) 
     </div>
 )
 
+const validate = values => {
+    const errors = {};
+    if (values.password != values.passwordConfirm) {
+        errors.password = 'password not match';
+    }
+    return errors;
+}
+
 @connect(
     state=>({errorMsg: state.auth.errorMsg})
 )
 @reduxForm({
     form: 'login',
+    validate
 })
 export default class LoginForm extends Component {
 
@@ -27,8 +36,9 @@ export default class LoginForm extends Component {
                 {errorMsg && <div className="alert alert-danger">{errorMsg}</div>}
                 <Field name="username" className="form-control" component={renderField} type="text" label="Login name"/>
                 <Field name="password" className="form-control" component={renderField} type="password" label="Password"/>
+                <Field name="passwordConfirm" className="form-control" component={renderField} type="password" label="Confirm"/>
                 <div>
-                    <button className="btn btn-primary" type="submit" disabled={pristine || submitting}>Login</button>
+                    <button className="btn btn-primary" type="submit" disabled={pristine || submitting}>Sign Up</button>
                     <button className="btn btn-default" type="button" disabled={pristine || submitting} onClick={reset}>Clear Values</button>
                 </div>
             </form>

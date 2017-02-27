@@ -21,7 +21,7 @@ export function setupLocalLogin(app) {
     res.send(tokenForUser(req.user));
   });
 
-  app.post('/signup', passport.authenticate('local-signup'), (req, res)=>{
+  app.post('/signup', passport.authenticate('local-signup', {session: false}), (req, res)=>{
     res.send({id: req.user.id, username: req.user.username});
   });
 

@@ -11,10 +11,9 @@ import configureStore from './store/configureStore';
 
 import { createNetworkInterface } from 'apollo-client';
 import { ApolloProvider } from 'react-apollo';
-import { Client } from 'subscriptions-transport-ws';
+import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws';
 
 import createApolloClient from './network/create-apollo-client';
-import addGraphQLSubscriptions from './network/subscriptions';
 
 import getRoutes from './routes';
 import {setupAxiosInterceptors} from './middleware/axios';
@@ -24,8 +23,10 @@ import './styles/main.scss';
 
 const PORT = process.env.PORT || '3000';
 const WS_PORT = process.env.WS_PORT || '8082';
-const wsClient = new Client(window.location.origin.replace(/^http/, 'ws')
-    .replace(':' + PORT, ':' + WS_PORT));
+const wsClient = new SubscriptionClient(window.location.origin.replace(/^http/, 'ws')
+    .replace(':' + PORT, ':' + WS_PORT), {
+        reconnect: true
+    });
 
 const networkInterface = createNetworkInterface({uri: '/graphql'});
 networkInterface.use([{

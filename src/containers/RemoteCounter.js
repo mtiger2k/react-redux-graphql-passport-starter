@@ -4,13 +4,9 @@ import gql from 'graphql-tag'
 import update from 'react-addons-update'
 import { Row, Button } from 'react-bootstrap'
 
-const SUBSCRIPTION_QUERY = gql`
-  subscription onCountUpdated {
-    countUpdated {
-      amount
-    }
-  }
-`;
+import COUNT_SUBSCRIPTION from '../graphql/CountSubscription.graphql'
+import COUNT_QUERY from '../graphql/CountQuery.graphql'
+import ADD_COUNT from '../graphql/AddCount.graphql'
 
 class Counter extends React.Component {
 
@@ -22,7 +18,7 @@ class Counter extends React.Component {
   componentWillReceiveProps(nextProps) {
       if (!this.subscription && !nextProps.loading) {
           this.subscription = this.props.subscribeToMore({
-              document: SUBSCRIPTION_QUERY,
+              document: COUNT_SUBSCRIPTION,
               variables: {},
               updateQuery: (previousResult, { subscriptionData }) => {
                   let newAmount = subscriptionData.data.countUpdated.amount;
@@ -70,31 +66,13 @@ Counter.propTypes = {
   subscribeToMore: React.PropTypes.func.isRequired
 };
 
-const AMOUNT_QUERY = gql`
-  query getCount {
-    count {
-      amount
-    }
-  }
-`;
-
-const ADD_COUNT_MUTATION = gql`
-  mutation addCount(
-    $amount: Int!
-  ) {
-    addCount(amount: $amount) {
-      amount
-    }
-  }
-`;
-
 export default compose(
-  graphql(AMOUNT_QUERY, {
+  graphql(COUNT_QUERY, {
     props({data: {loading, count, subscribeToMore}}) {
       return {loading, count, subscribeToMore};
     }
   }),
-  graphql(ADD_COUNT_MUTATION, {
+  graphql(ADD_COUNT, {
     props: ({ ownProps, mutate }) => ({
       addCount(amount) {
         return () => mutate({

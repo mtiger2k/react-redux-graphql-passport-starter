@@ -20,6 +20,7 @@ const apiProxy = proxy({ target: apiHost });
 app.use('/graphql', apiProxy);
 app.use('/graphiql', apiProxy);
 app.use('/signin', apiProxy);
+app.use('/signup', apiProxy);
 app.use('/user', apiProxy);
 
 /*app.use(proxy('/api', {target: 'http://localhost:'+API_PORT, changeOrigin: true,

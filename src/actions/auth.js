@@ -1,5 +1,6 @@
 import {
     SIGN_IN, SIGN_IN_SUCCESS, SIGN_IN_FAILED,
+    SIGN_UP, SIGN_UP_SUCCESS, SIGN_UP_FAILED,
     SIGN_OUT
 } from './types';
 import { fetchUser } from './user';
@@ -23,6 +24,21 @@ export function signInUser(username, password) {
                 } else {
                     browserHistory.push('/');
                 }
+            }
+        }
+    };
+}
+
+export function signUpUser(username, password) {
+    return {
+        types: [SIGN_UP, SIGN_UP_SUCCESS, SIGN_UP_FAILED],
+        promise: client => client.post('/signup', {
+            username: username,
+            password: password
+        }),
+        afterSuccess: (dispatch, getState, response) => {
+            if (response.status == '200') {
+                browserHistory.push('/login');
             }
         }
     };

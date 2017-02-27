@@ -1,4 +1,4 @@
-import ApolloClient, { addTypename } from 'apollo-client';
+import { ApolloClient, addTypename } from 'apollo-client';
 
 export default options => new ApolloClient(Object.assign({}, {
   queryTransformer: addTypename,

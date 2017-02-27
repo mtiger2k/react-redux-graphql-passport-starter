@@ -8,6 +8,7 @@ import About from '../containers/About';
 
 import privateRoute from './privateRoute';
 import Login from '../containers/Login';
+import Signup from '../containers/Signup';
 import { fetchUser } from '../actions/user';
 
 export default function getRoutes(onLogout, store, client) {
@@ -35,6 +36,7 @@ export default function getRoutes(onLogout, store, client) {
 		<Route name="RemoteCounter" path="remoteCounter" component={privateRoute(RemoteCounter)} />
 		<Route name="About" path="about" component={About} />
         <Route name="Login" path="login" component={Login} />
+        <Route name="Signup" path="signup" component={Signup} />
         <Route name="Logout" path="logout" onEnter={logout} />
 	</Route>
     );
