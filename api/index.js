@@ -13,6 +13,7 @@ import { setupLocalLogin } from './localLogin'
 
 require('dotenv').config();
 
+const SUBSCRIPTIONS_PATH = '/subscriptions';
 const API_PORT = process.env.API_PORT;
 
 const app = express();
@@ -56,9 +57,10 @@ const websocketServer = createServer((request, response) => {
   response.end();
 });
 
-websocketServer.listen(WS_PORT, () => console.log( // eslint-disable-line no-console
-  `Websocket Server is now running on http://localhost:${WS_PORT}`
-));
+websocketServer.listen(WS_PORT, () => {
+	console.log(`Websocket Server is now running on http://localhost:${WS_PORT}`); // eslint-disable-line no-console
+	console.log(`API Subscriptions server is now running on ws://localhost:${WS_PORT}${SUBSCRIPTIONS_PATH}`); // eslint-disable-line no-console
+});
 
 // eslint-disable-next-line
 new SubscriptionServer(
@@ -66,6 +68,6 @@ new SubscriptionServer(
     subscriptionManager,
   },
   { server: websocketServer,
-    path: '/'
+    path: SUBSCRIPTIONS_PATH
   }
 );
