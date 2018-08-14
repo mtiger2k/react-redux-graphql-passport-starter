@@ -1,3 +1,5 @@
+# this repo is deprecated, please see my new starter: [react-redux-graphql-starter](https://github.com/mtiger2k/react-redux-graphql-starter), it uses apollo client 2, and more other libraries, very like jhipster react client.
+
 # react-redux-graphql-passport-starter
 
 [![npm version](https://badge.fury.io/js/react-apollo.svg)](https://badge.fury.io/js/react-apollo)
